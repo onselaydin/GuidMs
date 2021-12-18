@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32002.261
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontends", "Frontends", "{FD80D0DD-3D6D-4666-A9AB-F8DCCEDBFA90}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{F6E68C0E-93EF-46C5-AE85-3C448CBE8823}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{6E8CD537-348E-4ABA-9FF1-BC6426A647F4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Guide", "Guide", "{4F599133-1DFD-4BC7-85A9-3F70775AC31F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuideService.Guide", "Guide\GuideService.Guide\GuideService.Guide.csproj", "{D4795B7F-D65E-4573-9D59-0A178ECD0EBB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D4795B7F-D65E-4573-9D59-0A178ECD0EBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4795B7F-D65E-4573-9D59-0A178ECD0EBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4795B7F-D65E-4573-9D59-0A178ECD0EBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4795B7F-D65E-4573-9D59-0A178ECD0EBB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4F599133-1DFD-4BC7-85A9-3F70775AC31F} = {F6E68C0E-93EF-46C5-AE85-3C448CBE8823}
+		{D4795B7F-D65E-4573-9D59-0A178ECD0EBB} = {4F599133-1DFD-4BC7-85A9-3F70775AC31F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7A9133D4-7DBF-49A2-AA9C-AEDA14CBE4A2}
+	EndGlobalSection
+EndGlobal
