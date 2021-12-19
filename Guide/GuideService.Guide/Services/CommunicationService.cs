@@ -5,6 +5,7 @@ using GuideService.Guide.Models;
 using GuideService.Guide.Settings;
 using MongoDB.Driver;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GuideService.Guide.Services
@@ -12,6 +13,7 @@ namespace GuideService.Guide.Services
     public class CommunicationService:ICommunicationService
     {
         private readonly IMongoCollection<Communication> _communicationCollection;
+        private readonly IMongoCollection<Person> _personCollection;
         private readonly IMapper _mapper;
 
         public CommunicationService(IMapper mapper, IDatabaseSettings databaseSettings)
@@ -19,6 +21,7 @@ namespace GuideService.Guide.Services
             var client = new MongoClient(databaseSettings.ConnectionString);
             var database = client.GetDatabase(databaseSettings.DatabaseName);
             _communicationCollection = database.GetCollection<Communication>(databaseSettings.CommunicationCollectionName);
+            _personCollection = database.GetCollection<Person>(databaseSettings.PersonCollectionName);
             _mapper = mapper;
         }
 
@@ -31,7 +34,18 @@ namespace GuideService.Guide.Services
 
         public async Task<Response<List<CommunicationDto>>> GetAllAsync()
         {
-            var communications = await _communicationCollection.Find(c => true).ToListAsync();
+            var communications = await _communicationCollection.Find(communication => true).ToListAsync();
+            if (communications.Any())
+            {
+                foreach (var comm in communications)
+                {
+                    comm.Person = await _personCollection.Find<Person>(x => x.UUID == comm.PersonId).FirstOrDefaultAsync();
+                }
+            }
+            else
+            {
+                communications = new List<Communication>();
+            }
             return Response<List<CommunicationDto>>.Success(_mapper.Map<List<CommunicationDto>>(communications), 200);
         }
 
