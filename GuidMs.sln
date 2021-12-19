@@ -13,7 +13,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Guide", "Guide", "{4F599133
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuideService.Guide", "Guide\GuideService.Guide\GuideService.Guide.csproj", "{D4795B7F-D65E-4573-9D59-0A178ECD0EBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guide.Shared", "Shared\Guide.Shared\Guide.Shared.csproj", "{9194955A-7FF4-4E1C-AE3A-77F525173AAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Guide.Shared", "Shared\Guide.Shared\Guide.Shared.csproj", "{9194955A-7FF4-4E1C-AE3A-77F525173AAF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guide.Web", "Frontends\Guide.Web\Guide.Web.csproj", "{636B2131-29E1-40A4-9E42-C0D1666AECC9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{9194955A-7FF4-4E1C-AE3A-77F525173AAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9194955A-7FF4-4E1C-AE3A-77F525173AAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9194955A-7FF4-4E1C-AE3A-77F525173AAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{636B2131-29E1-40A4-9E42-C0D1666AECC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{636B2131-29E1-40A4-9E42-C0D1666AECC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{636B2131-29E1-40A4-9E42-C0D1666AECC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{636B2131-29E1-40A4-9E42-C0D1666AECC9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -37,6 +43,7 @@ Global
 		{4F599133-1DFD-4BC7-85A9-3F70775AC31F} = {F6E68C0E-93EF-46C5-AE85-3C448CBE8823}
 		{D4795B7F-D65E-4573-9D59-0A178ECD0EBB} = {4F599133-1DFD-4BC7-85A9-3F70775AC31F}
 		{9194955A-7FF4-4E1C-AE3A-77F525173AAF} = {6E8CD537-348E-4ABA-9FF1-BC6426A647F4}
+		{636B2131-29E1-40A4-9E42-C0D1666AECC9} = {FD80D0DD-3D6D-4666-A9AB-F8DCCEDBFA90}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7A9133D4-7DBF-49A2-AA9C-AEDA14CBE4A2}

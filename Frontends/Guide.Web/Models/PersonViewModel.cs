@@ -1,19 +1,16 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace GuideService.Guide.Models
+namespace Guide.Web.Models
 {
-    public class Person
+    public class PersonViewModel
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
         public string UUID { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Company { get; set; }
-
-        [BsonElement("communications")]
         public IList<CommunicationViewModel> Communications { get; set; }
     }
 }
