@@ -37,9 +37,9 @@ namespace GuideService.Guide.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CommunicationDto communicationDto)
+        public async Task<IActionResult> Create(CommunicationCreateDto communicationCreateDto)
         {
-            var response = await _communicationService.CreateAsync(communicationDto);
+            var response = await _communicationService.CreateAsync(communicationCreateDto);
 
             return CreateActionResultInstance(response);
         }

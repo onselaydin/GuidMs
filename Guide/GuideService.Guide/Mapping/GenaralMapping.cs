@@ -17,6 +17,8 @@ namespace GuideService.Guide.Mapping
             CreateMap<Person, PersonUpdateDto>().ReverseMap();
 
             CreateMap<Communication, CommunicationDto>().ReverseMap();
+            CreateMap<Communication, CommunicationCreateDto>().ReverseMap();
+
         }
     }
 }

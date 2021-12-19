@@ -9,7 +9,7 @@ namespace GuideService.Guide.Dtos
     {
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string CommunicationId { get; set; }
+        public string Company { get; set; }
 
     }
 }

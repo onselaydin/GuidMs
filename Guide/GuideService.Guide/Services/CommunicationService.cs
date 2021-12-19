@@ -22,9 +22,9 @@ namespace GuideService.Guide.Services
             _mapper = mapper;
         }
 
-        public async Task<Response<CommunicationDto>> CreateAsync(CommunicationDto communicationDto)
+        public async Task<Response<CommunicationDto>> CreateAsync(CommunicationCreateDto communicationCreateDto)
         {
-            var communication = _mapper.Map<Communication>(communicationDto);
+            var communication = _mapper.Map<Communication>(communicationCreateDto);
             await _communicationCollection.InsertOneAsync(communication);
             return Response<CommunicationDto>.Success(_mapper.Map<CommunicationDto>(communication), 200);
         }
@@ -44,6 +44,20 @@ namespace GuideService.Guide.Services
             }
 
             return Response<CommunicationDto>.Success(_mapper.Map<CommunicationDto>(communication), 200);
+        }
+
+        public async Task<Response<NoContent>> DeleteAsync(string id)
+        {
+            var result = await _communicationCollection.DeleteOneAsync(x => x.UUID == id);
+
+            if (result.DeletedCount > 0)
+            {
+                return Response<NoContent>.Success(204);
+            }
+            else
+            {
+                return Response<NoContent>.Fail("Communication not found", 404);
+            }
         }
     }
 }

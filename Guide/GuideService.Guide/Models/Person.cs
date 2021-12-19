@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using System.Collections.Generic;
 
 namespace GuideService.Guide.Models
 {
@@ -12,10 +13,7 @@ namespace GuideService.Guide.Models
         public string Surname { get; set; }
         public string Company { get; set; }
 
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string CommunicationId { get; set; }
-
-        [BsonIgnore]
-        public Communication Communication { get; set; }
+        [BsonElement("communications")]
+        public IList<Communication> Communications { get; set; }
     }
 }

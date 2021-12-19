@@ -16,9 +16,9 @@ namespace GuideService.Guide.Services
         private readonly IMongoCollection<Person> _personCollection;
         private readonly IMongoCollection<Communication> _communicationCollection;
         private readonly IMapper _mapper;
-        private readonly Mass.IPublishEndpoint _publishEndpoint;
+      
 
-        public PersonService(IMapper mapper, IDatabaseSettings databaseSettings, Mass.IPublishEndpoint publishEndpoint)
+        public PersonService(IMapper mapper, IDatabaseSettings databaseSettings)
         {
             var client = new MongoClient(databaseSettings.ConnectionString);
             var database = client.GetDatabase(databaseSettings.DatabaseName);
@@ -26,7 +26,6 @@ namespace GuideService.Guide.Services
             _personCollection = database.GetCollection<Person>(databaseSettings.PersonCollectionName);
             _communicationCollection = database.GetCollection<Communication>(databaseSettings.CommunicationCollectionName);
             _mapper = mapper;
-            _publishEndpoint = publishEndpoint;
         }
 
         public async Task<Response<PersonDto>> CreateAsync(PersonCreateDto personCreateDto)
@@ -59,25 +58,7 @@ namespace GuideService.Guide.Services
             {
                 foreach (var person in persons)
                 {
-                    person.Communication = await _communicationCollection.Find<Communication>(x => x.UUID == person.CommunicationId).FirstAsync();
-                }
-            }
-            else
-            {
-                persons = new List<Person>();
-            }
-            return Response<List<PersonDto>>.Success(_mapper.Map<List<PersonDto>>(persons), 200);
-        }
-
-        public async Task<Response<List<PersonDto>>> GetAllByCommunicationIdAsync(string communicationId)
-        {
-            var persons = await _personCollection.Find<Person>(x => x.CommunicationId == communicationId).ToListAsync();
-
-            if (persons.Any())
-            {
-                foreach (var person in persons)
-                {
-                    person.Communication = await _communicationCollection.Find<Communication>(x => x.UUID == person.CommunicationId).FirstAsync();
+                    person.Communications = await _communicationCollection.Find<Communication>(x => x.PersonId == person.UUID).ToListAsync();
                 }
             }
             else
@@ -87,6 +68,8 @@ namespace GuideService.Guide.Services
 
             return Response<List<PersonDto>>.Success(_mapper.Map<List<PersonDto>>(persons), 200);
         }
+
+    
 
         public async Task<Response<PersonDto>> GetByIdAsync(string id)
         {
@@ -95,7 +78,7 @@ namespace GuideService.Guide.Services
             {
                 return Response<PersonDto>.Fail("Person not found", 404);
             }
-            person.Communication = await _communicationCollection.Find<Communication>(x => x.UUID == person.CommunicationId).FirstAsync();
+
             return Response<PersonDto>.Success(_mapper.Map<PersonDto>(person), 200);
         }
 

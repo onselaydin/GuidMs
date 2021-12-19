@@ -1,17 +1,12 @@
+using GuideService.Guide.Services;
 using GuideService.Guide.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GuideService.Guide
 {
@@ -27,6 +22,9 @@ namespace GuideService.Guide
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IPersonService, PersonService>();
+            services.AddScoped<ICommunicationService, CommunicationService>();
+
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
             services.Configure<DatabaseSettings>(Configuration.GetSection("DatabaseSettings"));

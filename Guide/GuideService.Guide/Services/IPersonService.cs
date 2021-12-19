@@ -9,7 +9,6 @@ namespace GuideService.Guide.Services
     {
         Task<Response<List<PersonDto>>> GetAllAsync();
         Task<Response<PersonDto>> GetByIdAsync(string id);
-        Task<Response<List<PersonDto>>> GetAllByCommunicationIdAsync(string personId);
         Task<Response<PersonDto>> CreateAsync(PersonCreateDto personCreateDto);
         Task<Response<NoContent>> UpdateAsync(PersonUpdateDto personUpdateDto);
         Task<Response<NoContent>> DeleteAsync(string id);

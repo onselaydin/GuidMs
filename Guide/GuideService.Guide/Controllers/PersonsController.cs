@@ -35,14 +35,7 @@ namespace GuideService.Guide.Controllers
             return CreateActionResultInstance(response);
         }
 
-        [HttpGet]
-        [Route("/api/[controller]/GetAllByCommunicationId/{Id}")]
-        public async Task<IActionResult> GetAllByCommunicationId(string Id)
-        {
-            var response = await _personService.GetAllByCommunicationIdAsync(Id);
-
-            return CreateActionResultInstance(response);
-        }
+        
 
         [HttpPost]
         public async Task<IActionResult> Create(PersonCreateDto personCreateDto)
