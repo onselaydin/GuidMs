@@ -14,6 +14,6 @@ namespace GuideService.Guide.Models
         public string Company { get; set; }
 
         [BsonElement("communications")]
-        public IList<CommunicationViewModel> Communications { get; set; }
+        public IList<Communication> Communications { get; set; }
     }
 }
