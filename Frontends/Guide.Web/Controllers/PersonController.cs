@@ -41,9 +41,29 @@ namespace Guide.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
         
+        public async Task<IActionResult> CreateCommInfo(string id)
+        {
+            ViewBag.personId = id;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateCommInfo(CommunicationCreateInput communicationCreateInput)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+         
+            await _personService.CreateCommunicationAsync(communicationCreateInput);
+            return RedirectToAction(nameof(Index));
+        }
+
         public async Task<IActionResult> Communication(string id)
         {
+
             var person = await _personService.GetByPersonId(id);
+          
             if (person == null)
             {
                 RedirectToAction(nameof(Index));

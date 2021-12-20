@@ -19,6 +19,13 @@ namespace Guide.Web.Services
             _client = httpClient;
         }
 
+        public async Task<bool> CreateCommunicationAsync(CommunicationCreateInput communicationCreateInput)
+        {
+            var response = await _client.PostAsJsonAsync<CommunicationCreateInput>("communications", communicationCreateInput);
+
+            return response.IsSuccessStatusCode;
+        }
+
         public async Task<bool> CreatePersonAsync(PersonCreateInput personCreateInput)
         {
             var response = await _client.PostAsJsonAsync<PersonCreateInput>("persons", personCreateInput);
@@ -30,17 +37,6 @@ namespace Guide.Web.Services
         {
             var response = await _client.DeleteAsync($"persons/{personId}");
             return response.IsSuccessStatusCode;
-        }
-
-        public async Task<List<CommunicationViewModel>> GetAllCommunicationAsync()
-        {
-            var response = await _client.GetAsync("communications");
-            if (!response.IsSuccessStatusCode)
-            {
-                return null;
-            }
-            var responseResult = await response.Content.ReadFromJsonAsync<Response<List<CommunicationViewModel>>>();
-            return responseResult.Data;
         }
 
         public async Task<List<PersonViewModel>> GetAllPersonAsync()
