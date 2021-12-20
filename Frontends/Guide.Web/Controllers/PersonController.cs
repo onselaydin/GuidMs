@@ -17,6 +17,7 @@ namespace Guide.Web.Controllers
             _personService = personService;
         }
 
+        #region person methods
         public async Task<IActionResult> Index()
         {
             return View(await _personService.GetAllPersonAsync());
@@ -41,35 +42,7 @@ namespace Guide.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
         
-        public async Task<IActionResult> CreateCommInfo(string id)
-        {
-            ViewBag.personId = id;
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> CreateCommInfo(CommunicationCreateInput communicationCreateInput)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View();
-            }
-         
-            await _personService.CreateCommunicationAsync(communicationCreateInput);
-            return RedirectToAction(nameof(Index));
-        }
-
-        public async Task<IActionResult> Communication(string id)
-        {
-
-            var person = await _personService.GetByPersonId(id);
-          
-            if (person == null)
-            {
-                RedirectToAction(nameof(Index));
-            }
-            return View(person);
-        }
+        
         public async Task<IActionResult> Update(string id)
         {
             var person = await _personService.GetByPersonId(id);
@@ -109,5 +82,45 @@ namespace Guide.Web.Controllers
             await _personService.DeletePersonAsync(id);
             return RedirectToAction(nameof(Index));
         }
+        #endregion
+
+
+
+        #region comminicaiton methods
+        public async Task<IActionResult> CreateCommInfo(string id)
+        {
+            ViewBag.personId = id;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateCommInfo(CommunicationCreateInput communicationCreateInput)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            await _personService.CreateCommunicationAsync(communicationCreateInput);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Communication(string id)
+        {
+
+            var person = await _personService.GetByPersonId(id);
+
+            if (person == null)
+            {
+                RedirectToAction(nameof(Index));
+            }
+            return View(person);
+        }
+        public async Task<IActionResult> DeleteCommunication(string id)
+        {
+            await _personService.DeleteCommunicationAsync(id);
+            return RedirectToAction(nameof(Index));
+        }
+        #endregion
     }
 }

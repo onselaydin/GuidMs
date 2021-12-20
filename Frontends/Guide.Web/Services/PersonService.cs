@@ -33,6 +33,12 @@ namespace Guide.Web.Services
             return response.IsSuccessStatusCode;
         }
 
+        public async Task<bool> DeleteCommunicationAsync(string communicationId)
+        {
+            var response = await _client.DeleteAsync($"communications/{communicationId}");
+            return response.IsSuccessStatusCode;
+        }
+
         public async Task<bool> DeletePersonAsync(string personId)
         {
             var response = await _client.DeleteAsync($"persons/{personId}");
