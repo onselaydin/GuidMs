@@ -67,7 +67,7 @@ namespace Guide.Web.Services
 
         public async Task<bool> UpdatePersonAsync(PersonUpdateInput personUpdateInput)
         {
-            var response = await _client.PutAsJsonAsync<PersonUpdateInput>("courses", personUpdateInput);
+            var response = await _client.PutAsJsonAsync<PersonUpdateInput>("persons", personUpdateInput);
             return response.IsSuccessStatusCode;
         }
     }

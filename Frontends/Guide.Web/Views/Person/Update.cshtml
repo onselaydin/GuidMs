@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewData["Title"] = "Update";
+}
+
+@model PersonUpdateInput
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Kişi Güncelle</h5>
+                <form asp-controller="Person" asp-action="Update" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <input type="hidden" asp-for="UUID" />
+
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Name"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Surname" class="form-label"></label>
+                        <input asp-for="Surname" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Surname"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Company" class="form-label"></label>
+                        <textarea asp-for="Company" class="form-control"></textarea>
+                        <span class="text-danger" asp-validation-for="Company"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -20,17 +20,22 @@
                                 <th>Ad</th>
                                 <th>Soyad</th>
                                 <th>Firma</th>
+                                <th>İşlemler</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model)
                             {
-                                <tr>
-                                    <td></td>
-                                    <td>@item.Name</td>
-                                    <td>@item.Surname</td>
-                                    <td>@item.Company</td>
-                                </tr>
+                            <tr>
+                                <td></td>
+                                <td>@item.Name</td>
+                                <td>@item.Surname</td>
+                                <td>@item.Company</td>
+                                <td>
+                                    <a asp-controller="Person" asp-action="Update" asp-route-id="@item.UUID" class="btn btn-success btn-sm">Güncelle</a>
+                                    <a asp-controller="Person" asp-action="Delete" asp-route-id="@item.UUID" class="btn btn-dark btn-sm">Sil</a>
+                                </td>
+                            </tr>
                             }
                         </tbody>
                     </table>
