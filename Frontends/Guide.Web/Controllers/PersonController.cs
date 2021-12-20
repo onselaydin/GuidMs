@@ -40,6 +40,16 @@ namespace Guide.Web.Controllers
             await _personService.CreatePersonAsync(personCreateInput);
             return RedirectToAction(nameof(Index));
         }
+        
+        public async Task<IActionResult> Communication(string id)
+        {
+            var person = await _personService.GetByPersonId(id);
+            if (person == null)
+            {
+                RedirectToAction(nameof(Index));
+            }
+            return View(person);
+        }
         public async Task<IActionResult> Update(string id)
         {
             var person = await _personService.GetByPersonId(id);
@@ -57,6 +67,7 @@ namespace Guide.Web.Controllers
 
             return View(personUpdateInput);
         }
+
         [HttpPost]
         public async Task<IActionResult> Update(PersonUpdateInput personUpdateInput)
         {

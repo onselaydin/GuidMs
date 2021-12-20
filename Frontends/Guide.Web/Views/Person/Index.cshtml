@@ -33,6 +33,8 @@
                                 <td>@item.Company</td>
                                 <td>
                                     <a asp-controller="Person" asp-action="Update" asp-route-id="@item.UUID" class="btn btn-success btn-sm">Güncelle</a>
+                                    <a asp-controller="Person" asp-action="Communication" asp-route-id="@item.UUID" class="btn btn-success btn-sm">
+                                        <i class="bi bi-telephone">İletişim</i></a>
                                     <a asp-controller="Person" asp-action="Delete" asp-route-id="@item.UUID" class="btn btn-dark btn-sm">Sil</a>
                                 </td>
                             </tr>
