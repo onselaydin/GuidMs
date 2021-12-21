@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Guide.Shared.Messages;
 using Guide.Shared.Dtos;
+using MassTransit;
 
 namespace GuideService.Report.Services
 {
@@ -21,6 +22,8 @@ namespace GuideService.Report.Services
             _communicationCollection = database.GetCollection<Communication>(databaseSettings.CommunicationCollectionName);
 
         }
+
+        
         public async Task<List<ReportModel>> GetAllAsync()
         {
             var result = await _communicationCollection.Aggregate<Communication>()

@@ -27,7 +27,7 @@ namespace GuideService.Guide.Controllers
         [Route("[action]")]
         public async Task<IActionResult> RequestReport()
         {
-            var sendEndpoint = await _sendEndpointProvider.GetSendEndpoint(new Uri("queue:create-report-service"));
+            var sendEndpoint = await _sendEndpointProvider.GetSendEndpoint(new Uri("queue:create-report-request"));
             var createReportMessageCommand = new ReportRequestEvent();
             createReportMessageCommand.UUID = Guid.NewGuid();
             createReportMessageCommand.RequestTime = DateTime.Now;
@@ -35,6 +35,8 @@ namespace GuideService.Guide.Controllers
             await sendEndpoint.Send(createReportMessageCommand);
             return CreateActionResultInstance<NoContent>(Response<NoContent>.Success(200));
         }
+
+       
 
         [HttpGet]
         public async Task<IActionResult> GetAll()

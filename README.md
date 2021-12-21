@@ -2,10 +2,10 @@
 
 ### Prerequisites
 ```
-[.Net 5.0](https://dotnet.microsoft.com/en-us/download/dotnet/5.0)
-[Git](https://git-scm.com/downloads)
-[MongoDb](https://hub.docker.com/_/mongo)
-[RabbitMQ](https://hub.docker.com/_/rabbitmq)
+`[.Net 5.0](https://dotnet.microsoft.com/en-us/download/dotnet/5.0)`
+`[Git](https://git-scm.com/downloads)`
+`[MongoDb](https://hub.docker.com/_/mongo)`
+`[RabbitMQ](https://hub.docker.com/_/rabbitmq)`
 ```
 
 ### Projenin Klonlanması

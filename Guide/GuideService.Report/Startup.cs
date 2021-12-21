@@ -1,3 +1,4 @@
+using Guide.Shared.Messages;
 using GuideService.Report.Services;
 using GuideService.Report.Settings;
 using MassTransit;
@@ -29,8 +30,10 @@ namespace GuideService.Report
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddMassTransit(x =>
             {
+                x.AddConsumer<ReportConsumer>();
                 //Default port : 5672;
                 x.UsingRabbitMq((context, cfg) =>
                 {
@@ -38,6 +41,10 @@ namespace GuideService.Report
                     {
                         host.Username("okipu");
                         host.Password("r9SfAkcZAsQg");
+                    });
+                    cfg.ReceiveEndpoint("create-report-request", e =>
+                    {
+                        e.ConfigureConsumer<ReportConsumer>(context);
                     });
                 });
             });

@@ -1,10 +1,8 @@
 ﻿using FreeCourse.Shared.ControllerBases;
 using GuideService.Report.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Microsoft.Extensions.PlatformAbstractions;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace GuideService.Report.Controllers
@@ -23,8 +21,18 @@ namespace GuideService.Report.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
+
             var result = await _reportService.GetAllAsync();
             return Ok(result);
         }
+
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult> DownloadFile(string id)
+        //{
+        //    var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, $"{id}.txt");
+
+        //    var bytes = await System.IO.File.ReadAllBytesAsync(filePath);
+        //    return File(bytes, "text/plain", Path.GetFileName(filePath));
+        //}
     }
 }
