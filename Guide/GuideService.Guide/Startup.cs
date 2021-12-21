@@ -1,5 +1,6 @@
 using GuideService.Guide.Services;
 using GuideService.Guide.Settings;
+using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -22,6 +23,18 @@ namespace GuideService.Guide
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMassTransit(x =>
+            {
+                //Default port : 5672;
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host(Configuration["RabbitMQUrl"], "/", host =>
+                    {
+                        host.Username("okipu");
+                        host.Password("r9SfAkcZAsQg");
+                    });
+                });
+            });
             services.AddScoped<IPersonService, PersonService>();
             services.AddScoped<ICommunicationService, CommunicationService>();
 

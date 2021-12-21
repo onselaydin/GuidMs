@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewData["Title"] = "CreateCommInfo";
+}
+
+@model CommunicationCreateInput
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Yeni Kişi</h5>
+                <form asp-controller="Person" asp-action="CreateCommInfo" method="post" enctype="multipart/form-data" autocomplete="off">
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <input type="hidden" asp-for="PersonId" value="@ViewBag.personId"/>
+                    <div class="mb-3">
+                        <label asp-for="Type" class="form-label"></label>
+
+                        <select name="type" asp-for="Type" class="form-control">
+                            <option value="Telefon Numarası">Telefon Numarası</option>
+                            <option value="E-mail Adresi">E-mail Adresi</option>
+                            <option value="Konum">Konum</option>
+                        </select>
+
+                        <span class="text-danger" asp-validation-for="Type"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Content" class="form-label"></label>
+                        <input asp-for="Content" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Content"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

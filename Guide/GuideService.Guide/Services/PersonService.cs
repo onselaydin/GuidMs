@@ -78,6 +78,10 @@ namespace GuideService.Guide.Services
             {
                 return Response<PersonDto>.Fail("Person not found", 404);
             }
+            else
+            {
+               person.Communications = await _communicationCollection.Find<Communication>(x => x.PersonId == person.UUID).ToListAsync();
+            }
 
             return Response<PersonDto>.Success(_mapper.Map<PersonDto>(person), 200);
         }
