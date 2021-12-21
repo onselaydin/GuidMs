@@ -17,7 +17,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Guide.Shared", "Shared\Guid
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Guide.Web", "Frontends\Guide.Web\Guide.Web.csproj", "{636B2131-29E1-40A4-9E42-C0D1666AECC9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuideService.Report", "Guide\GuideService.Report\GuideService.Report.csproj", "{E3BBD09B-B51B-4390-BE0B-EB8019BCF774}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuideService.Report", "Guide\GuideService.Report\GuideService.Report.csproj", "{E3BBD09B-B51B-4390-BE0B-EB8019BCF774}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B2689E70-8A44-45A3-8198-6D5FEA1CD5C6}"
+	ProjectSection(SolutionItems) = preProject
+		readme.md = readme.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -69,7 +69,6 @@ namespace GuideService.Guide.Services
             return Response<List<PersonDto>>.Success(_mapper.Map<List<PersonDto>>(persons), 200);
         }
 
-    
 
         public async Task<Response<PersonDto>> GetByIdAsync(string id)
         {
@@ -86,6 +85,11 @@ namespace GuideService.Guide.Services
             return Response<PersonDto>.Success(_mapper.Map<PersonDto>(person), 200);
         }
 
+        public Task<Response<NoContent>> SendReportMessage()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public async Task<Response<NoContent>> UpdateAsync(PersonUpdateDto personUpdateDto)
         {
             var updatePerson = _mapper.Map<Person>(personUpdateDto);
@@ -99,5 +103,7 @@ namespace GuideService.Guide.Services
 
             return Response<NoContent>.Success(204);
         }
+
+
     }
 }

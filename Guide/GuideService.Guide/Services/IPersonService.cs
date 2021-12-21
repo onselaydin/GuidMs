@@ -12,5 +12,7 @@ namespace GuideService.Guide.Services
         Task<Response<PersonDto>> CreateAsync(PersonCreateDto personCreateDto);
         Task<Response<NoContent>> UpdateAsync(PersonUpdateDto personUpdateDto);
         Task<Response<NoContent>> DeleteAsync(string id);
+
+        Task<Response<NoContent>> SendReportMessage();
     }
 }

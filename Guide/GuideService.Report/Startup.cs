@@ -1,3 +1,5 @@
+using GuideService.Report.Services;
+using GuideService.Report.Settings;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -6,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
@@ -33,13 +36,19 @@ namespace GuideService.Report
                 {
                     cfg.Host(Configuration["RabbitMQUrl"], "/", host =>
                     {
-                        host.Username("guest");
-                        host.Password("guest");
+                        host.Username("okipu");
+                        host.Password("r9SfAkcZAsQg");
                     });
                 });
             });
-
+            services.AddMassTransitHostedService();
+            services.AddScoped<IReportService, ReportService>();
             services.AddControllers();
+            services.Configure<DatabaseSettings>(Configuration.GetSection("DatabaseSettings"));
+            services.AddSingleton<IDatabaseSettings>(sp =>
+            {
+                return sp.GetRequiredService<IOptions<DatabaseSettings>>().Value;
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "GuideService.Report", Version = "v1" });

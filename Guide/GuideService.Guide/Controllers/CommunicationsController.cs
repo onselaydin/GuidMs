@@ -1,11 +1,7 @@
 ﻿using FreeCourse.Shared.ControllerBases;
 using GuideService.Guide.Dtos;
 using GuideService.Guide.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace GuideService.Guide.Controllers
