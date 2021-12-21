@@ -7,7 +7,16 @@ namespace GuideService.Guide.Services
 {
     public interface IPersonService
     {
+        /// <summary>
+        /// return all Contact list
+        /// </summary>
+        /// <returns></returns>
         Task<Response<List<PersonDto>>> GetAllAsync();
+        /// <summary>
+        /// return contact by from id
+        /// </summary>
+        /// <param name="id">Person Id</param>
+        /// <returns></returns>
         Task<Response<PersonDto>> GetByIdAsync(string id);
         Task<Response<PersonDto>> CreateAsync(PersonCreateDto personCreateDto);
         Task<Response<NoContent>> UpdateAsync(PersonUpdateDto personUpdateDto);

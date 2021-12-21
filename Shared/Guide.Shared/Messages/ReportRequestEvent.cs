@@ -8,7 +8,7 @@ namespace Guide.Shared.Messages
 {
     public class ReportRequestEvent
     {
-        public string UUID { get; set; }
+        public Guid UUID { get; set; }
         public DateTime RequestTime { get; set; }
         public bool Status { get; set; }
     }

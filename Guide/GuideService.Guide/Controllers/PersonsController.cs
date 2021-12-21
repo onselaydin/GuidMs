@@ -1,11 +1,11 @@
 ﻿using FreeCourse.Shared.ControllerBases;
+using Guide.Shared.Dtos;
+using Guide.Shared.Messages;
 using GuideService.Guide.Dtos;
 using GuideService.Guide.Services;
-using Microsoft.AspNetCore.Http;
+using Mass=MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace GuideService.Guide.Controllers
@@ -14,10 +14,26 @@ namespace GuideService.Guide.Controllers
     [ApiController]
     public class PersonsController : CustomBaseController
     {
+        private readonly Mass.ISendEndpointProvider _sendEndpointProvider;
+
         private readonly IPersonService _personService;
-        public PersonsController(IPersonService personService)
+        public PersonsController(IPersonService personService, Mass.ISendEndpointProvider sendEndpointProvider)
         {
             _personService = personService;
+            this._sendEndpointProvider = sendEndpointProvider;
+        }
+
+        [HttpPost]
+        [Route("[action]")]
+        public async Task<IActionResult> RequestReport()
+        {
+            var sendEndpoint = await _sendEndpointProvider.GetSendEndpoint(new Uri("queue:create-report-service"));
+            var createReportMessageCommand = new ReportRequestEvent();
+            createReportMessageCommand.UUID = Guid.NewGuid();
+            createReportMessageCommand.RequestTime = DateTime.Now;
+            createReportMessageCommand.Status = false;
+            await sendEndpoint.Send(createReportMessageCommand);
+            return CreateActionResultInstance<NoContent>(Response<NoContent>.Success(200));
         }
 
         [HttpGet]
