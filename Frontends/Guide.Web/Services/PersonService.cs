@@ -56,6 +56,16 @@ namespace Guide.Web.Services
             return responseResult.Data;
         }
 
+        public async Task<bool> RequestReport()
+        {
+            var response = await _client.GetAsync("persons/RequestReport");
+            if (!response.IsSuccessStatusCode)
+            {
+                return false;
+            }
+            return false;
+        }
+
         public async Task<PersonViewModel> GetByPersonId(string personId)
         {
             var response = await _client.GetAsync($"persons/{personId}");

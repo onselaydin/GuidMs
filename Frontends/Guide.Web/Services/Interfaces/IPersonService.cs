@@ -15,5 +15,6 @@ namespace Guide.Web.Services.Interfaces
         Task<bool> DeletePersonAsync(string personId);
         Task<bool> CreateCommunicationAsync(CommunicationCreateInput communicationCreateInput);
         Task<bool> DeleteCommunicationAsync(string communicationId);
+        Task<bool> RequestReport();
     }
 }

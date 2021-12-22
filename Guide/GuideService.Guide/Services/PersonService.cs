@@ -8,11 +8,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Guide.Shared.Dtos;
+using Guide.Shared.Messages;
 
 namespace GuideService.Guide.Services
 {
     public class PersonService: IPersonService
     {
+        private readonly IMongoCollection<ReportRequestEvent> _reportRequestCollection;
         private readonly IMongoCollection<Person> _personCollection;
         private readonly IMongoCollection<Communication> _communicationCollection;
         private readonly IMapper _mapper;
@@ -23,9 +25,16 @@ namespace GuideService.Guide.Services
             var client = new MongoClient(databaseSettings.ConnectionString);
             var database = client.GetDatabase(databaseSettings.DatabaseName);
 
+            _reportRequestCollection = database.GetCollection<ReportRequestEvent>(databaseSettings.ReportRequestCollectionName);
             _personCollection = database.GetCollection<Person>(databaseSettings.PersonCollectionName);
             _communicationCollection = database.GetCollection<Communication>(databaseSettings.CommunicationCollectionName);
             _mapper = mapper;
+        }
+
+        public async Task<Response<ReportRequestEvent>> CreateReportRequest(ReportRequestEvent reportRequestEvent)
+        {
+            await _reportRequestCollection.InsertOneAsync(reportRequestEvent);
+            return Response<ReportRequestEvent>.Success(reportRequestEvent, 200);
         }
 
         public async Task<Response<PersonDto>> CreateAsync(PersonCreateDto personCreateDto)
@@ -85,10 +94,7 @@ namespace GuideService.Guide.Services
             return Response<PersonDto>.Success(_mapper.Map<PersonDto>(person), 200);
         }
 
-        public Task<Response<NoContent>> SendReportMessage()
-        {
-            throw new System.NotImplementedException();
-        }
+   
 
         public async Task<Response<NoContent>> UpdateAsync(PersonUpdateDto personUpdateDto)
         {

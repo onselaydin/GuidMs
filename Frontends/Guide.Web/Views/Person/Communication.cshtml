@@ -12,7 +12,9 @@
             <div class="card-body">
                 <h5 class="card-title">Kişi İletişim Bilgileri</h5>
                 <input type="hidden" asp-for="UUID" />
+                
                 <a asp-controller="Person" asp-action="CreateCommInfo" asp-route-id="@Model.UUID" class="btn btn-primary mb-3">Ekle</a>
+
                 @if (Model.Communications.Any())
                 {
                     <table class="table table-striped table-bordered">
