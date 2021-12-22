@@ -124,15 +124,15 @@ namespace Guide.Web.Controllers
         #endregion
         public async Task<IActionResult> Report()
         {
-            return View();
+            return View(await _personService.GetAllReportAsync());
         }
         public async Task<IActionResult> ReportRequest()
         {
             
             var result= await _personService.RequestReport();
             _logger.LogInformation(result.ToString());
-            // return RedirectToAction(nameof(Report));
-            return Ok();
+            return RedirectToAction(nameof(Report));
+            //return Ok();
         }
     }
 }

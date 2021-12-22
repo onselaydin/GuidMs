@@ -37,6 +37,14 @@ namespace GuideService.Guide.Services
             return Response<ReportRequestEvent>.Success(reportRequestEvent, 200);
         }
 
+        public async Task<Response<List<ReportRequestEvent>>> GetAllReportAsync()
+        {
+            var reports = await _reportRequestCollection.Find(report => true).ToListAsync();
+            
+
+            return Response<List<ReportRequestEvent>>.Success(_mapper.Map<List<ReportRequestEvent>>(reports), 200);
+        }
+
         public async Task<Response<PersonDto>> CreateAsync(PersonCreateDto personCreateDto)
         {
             var newPerson = _mapper.Map<Person>(personCreateDto);

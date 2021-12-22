@@ -24,7 +24,7 @@ namespace GuideService.Guide.Controllers
         }
 
         [HttpGet]
-        [Route("[action]")]
+        [Route("RequestReport")]
         public async Task<IActionResult> RequestReport()
         {
             var sendEndpoint = await _sendEndpointProvider.GetSendEndpoint(new Uri("queue:create-report-request"));
@@ -41,13 +41,19 @@ namespace GuideService.Guide.Controllers
             return CreateActionResultInstance<NoContent>(Response<NoContent>.Success(200));
         }
 
-       
-
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var persons = await _personService.GetAllAsync();
             return CreateActionResultInstance(persons);
+        }
+
+        [HttpGet]
+        [Route("GetReportsAsync")]
+        public async Task<IActionResult> GetReportsAsync()
+        {
+            var reports = await _personService.GetAllReportAsync();
+            return CreateActionResultInstance(reports);
         }
 
         [HttpGet("{id}")]
@@ -57,8 +63,6 @@ namespace GuideService.Guide.Controllers
 
             return CreateActionResultInstance(response);
         }
-
-        
 
         [HttpPost]
         public async Task<IActionResult> Create(PersonCreateDto personCreateDto)

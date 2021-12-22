@@ -2,7 +2,60 @@
 @{
     ViewData["Title"] = "Report";
 }
-@model ReportRequestEvent
+@model List<ReportRequestEvent>
 
-<label asp-for="Status" class="form-label"></label>
-<a asp-controller="Person" asp-action="ReportRequest" class="btn btn-primary mb-3">Rapor oluştur</a>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Kişiler</h5>
+
+                <a asp-controller="Person" asp-action="ReportRequest" class="btn btn-primary mb-3">Rapor oluştur</a>
+
+
+                @if (Model.Any())
+                {
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Id</th>
+                                <th>Talep Tarihi</th>
+                                <th>Durum</th>
+  
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td></td>
+                                    <td>@item.UUID</td>
+                                    <td>@item.RequestTime</td>
+                                    <td>@item.Status</td>
+                                    <td>
+                                        @if (item.Status == true)
+                                        {
+                                            <a asp-controller="" asp-action="" asp-route-id="@item.UUID" class="btn btn-success btn-sm">İndir</a>
+                                        }
+                                        else
+                                        {
+                                            <a class="btn btn-success btn-sm">Rapor oluşturuluyor</a>
+                                        }
+
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <div class="alert alert-info">Kişi bulunamadı.</div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>

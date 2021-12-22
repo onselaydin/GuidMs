@@ -1,4 +1,5 @@
-﻿using Guide.Web.Models;
+﻿using Guide.Shared.Messages;
+using Guide.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,6 @@ namespace Guide.Web.Services.Interfaces
         Task<bool> CreateCommunicationAsync(CommunicationCreateInput communicationCreateInput);
         Task<bool> DeleteCommunicationAsync(string communicationId);
         Task<bool> RequestReport();
+        Task<List<ReportRequestEvent>> GetAllReportAsync();
     }
 }

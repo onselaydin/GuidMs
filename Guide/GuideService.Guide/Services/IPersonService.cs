@@ -19,6 +19,7 @@ namespace GuideService.Guide.Services
         /// <param name="id">Person Id</param>
         /// <returns></returns>
         Task<Response<ReportRequestEvent>> CreateReportRequest(ReportRequestEvent reportRequestEvent);
+        Task<Response<List<ReportRequestEvent>>> GetAllReportAsync();
         Task<Response<PersonDto>> GetByIdAsync(string id);
         Task<Response<PersonDto>> CreateAsync(PersonCreateDto personCreateDto);
         Task<Response<NoContent>> UpdateAsync(PersonUpdateDto personUpdateDto);
