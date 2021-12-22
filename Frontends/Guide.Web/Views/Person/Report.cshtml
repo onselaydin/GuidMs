@@ -36,7 +36,7 @@
                                     <td>
                                         @if (item.Status == true)
                                         {
-                                            <a asp-controller="" asp-action="" asp-route-id="@item.UUID" class="btn btn-success btn-sm">İndir</a>
+                                            <a asp-controller="Person" asp-action="DownloadReport" asp-route-id="@item.RequestTime.ToString("yyyyMMddHHmm")" class="btn btn-success btn-sm">İndir</a>
                                         }
                                         else
                                         {

@@ -76,6 +76,10 @@ namespace Guide.Web.Services
             var responseResult = await response.Content.ReadFromJsonAsync<Response<List<ReportRequestEvent>>>();
             return responseResult.Data;
         }
+        public async Task DownloadReport(string id)
+        {
+            await _client.GetAsync($"http://localhost:5002/api/report/{id}");
+        }
         public async Task<PersonViewModel> GetByPersonId(string personId)
         {
             var response = await _client.GetAsync($"persons/{personId}");

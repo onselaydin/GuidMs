@@ -8,6 +8,7 @@ namespace FreeCourse.Web.Models
     public class ServiceApiSettings
     {
         public string GuideBaseUrl { get; set; }
+        public string ReportBaseUrl { get; set; }
      
     }
 

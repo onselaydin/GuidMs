@@ -18,5 +18,6 @@ namespace Guide.Web.Services.Interfaces
         Task<bool> DeleteCommunicationAsync(string communicationId);
         Task<bool> RequestReport();
         Task<List<ReportRequestEvent>> GetAllReportAsync();
+        Task DownloadReport(string fileName);
     }
 }

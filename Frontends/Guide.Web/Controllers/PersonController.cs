@@ -126,6 +126,12 @@ namespace Guide.Web.Controllers
         {
             return View(await _personService.GetAllReportAsync());
         }
+        public async Task<IActionResult> DownloadReport(string id)
+        {
+            await _personService.DownloadReport(id+"Report");
+            return RedirectToAction(nameof(Report));
+           
+        }
         public async Task<IActionResult> ReportRequest()
         {
             

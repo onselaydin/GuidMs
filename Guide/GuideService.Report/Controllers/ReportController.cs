@@ -18,21 +18,22 @@ namespace GuideService.Report.Controllers
             _reportService = reportService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
-        {
-
-            var result = await _reportService.GetAllAsync();
-            return Ok(result);
-        }
-
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult> DownloadFile(string id)
+        //[HttpGet]
+        //public async Task<IActionResult> GetAll()
         //{
-        //    var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, $"{id}.txt");
 
-        //    var bytes = await System.IO.File.ReadAllBytesAsync(filePath);
-        //    return File(bytes, "text/plain", Path.GetFileName(filePath));
+        //    var result = await _reportService.GetAllAsync();
+        //    return Ok(result);
         //}
+
+        [HttpGet("{id}")]
+        //[Route("DownloadFile")]
+        public async Task<ActionResult> DownloadFile(string id)
+        {
+            var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, $"{id}.xlsx");
+
+            var bytes = await System.IO.File.ReadAllBytesAsync(filePath);
+            return File(bytes, "text/plain", Path.GetFileName(filePath));
+        }
     }
 }
