@@ -10,6 +10,8 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Kişiler</h5>
+                
+                <a asp-controller="Person" asp-action="Report" class="btn btn-primary mb-3">Rapor Talepleri</a>
 
                 @if (Model.Any())
                 {
@@ -26,22 +28,23 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-                            <tr>
-                                <td></td>
-                                <td>@item.Name</td>
-                                <td>@item.Surname</td>
-                                <td>@item.Company</td>
-                                <td>
-                                    <a asp-controller="Person" asp-action="Update" asp-route-id="@item.UUID" class="btn btn-success btn-sm">Güncelle</a>
-                                    <a asp-controller="Person" asp-action="Communication" asp-route-id="@item.UUID" class="btn btn-success btn-sm">
-                                        <i class="bi bi-telephone">İletişim</i></a>
-                                    <a asp-controller="Person" asp-action="Delete" asp-route-id="@item.UUID" class="btn btn-dark btn-sm">Sil</a>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>@item.Name</td>
+                                    <td>@item.Surname</td>
+                                    <td>@item.Company</td>
+                                    <td>
+                                        <a asp-controller="Person" asp-action="Update" asp-route-id="@item.UUID" class="btn btn-success btn-sm">Güncelle</a>
+                                        <a asp-controller="Person" asp-action="Communication" asp-route-id="@item.UUID" class="btn btn-success btn-sm">
+                                            <i class="bi bi-telephone">İletişim</i>
+                                        </a>
+                                        <a asp-controller="Person" asp-action="Delete" asp-route-id="@item.UUID" class="btn btn-dark btn-sm">Sil</a>
+                                    </td>
+                                </tr>
                             }
                         </tbody>
                     </table>
-                 }
+                }
                 else
                 {
                     <div class="alert alert-info">Kişi bulunamadı.</div>

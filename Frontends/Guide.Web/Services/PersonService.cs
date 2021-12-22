@@ -1,4 +1,5 @@
 ﻿using Guide.Shared.Dtos;
+using Guide.Shared.Messages;
 using Guide.Web.Models;
 using Guide.Web.Services.Interfaces;
 using System;
@@ -56,6 +57,29 @@ namespace Guide.Web.Services
             return responseResult.Data;
         }
 
+        public async Task<bool> RequestReport()
+        {
+            var response = await _client.GetAsync("persons/RequestReport");
+            if (!response.IsSuccessStatusCode)
+            {
+                return false;
+            }
+            return false;
+        }
+        public async Task<List<ReportRequestEvent>> GetAllReportAsync()
+        {
+            var response = await _client.GetAsync("persons/GetReportsAsync");
+            if (!response.IsSuccessStatusCode)
+            {
+                return null;
+            }
+            var responseResult = await response.Content.ReadFromJsonAsync<Response<List<ReportRequestEvent>>>();
+            return responseResult.Data;
+        }
+        public async Task DownloadReport(string id)
+        {
+            await _client.GetAsync($"http://localhost:5002/api/report/{id}");
+        }
         public async Task<PersonViewModel> GetByPersonId(string personId)
         {
             var response = await _client.GetAsync($"persons/{personId}");

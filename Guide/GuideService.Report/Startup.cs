@@ -3,17 +3,11 @@ using GuideService.Report.Settings;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GuideService.Report
 {
@@ -29,8 +23,10 @@ namespace GuideService.Report
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddMassTransit(x =>
             {
+                x.AddConsumer<ReportConsumer>();
                 //Default port : 5672;
                 x.UsingRabbitMq((context, cfg) =>
                 {
@@ -38,6 +34,10 @@ namespace GuideService.Report
                     {
                         host.Username("okipu");
                         host.Password("r9SfAkcZAsQg");
+                    });
+                    cfg.ReceiveEndpoint("create-report-request", e =>
+                    {
+                        e.ConfigureConsumer<ReportConsumer>(context);
                     });
                 });
             });

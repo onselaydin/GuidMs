@@ -26,10 +26,12 @@ namespace Guide.Web
         public void ConfigureServices(IServiceCollection services)
         {
             var serviceApiSettings = Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
+
             services.AddHttpClient<IPersonService, PersonService>(opt =>
             {
                 opt.BaseAddress = new Uri($"{serviceApiSettings.GuideBaseUrl}");
             });
+
 
             services.AddControllersWithViews();
         }

@@ -7,7 +7,7 @@ namespace GuideService.Report.Settings
 {
     public interface IDatabaseSettings
     {
-        public string PersonCollectionName { get; set; }
+        public string ReportRequestCollectionName { get; set; }
         public string CommunicationCollectionName { get; set; }
         public string ConnectionString { get; set; }
         public string DatabaseName { get; set; }

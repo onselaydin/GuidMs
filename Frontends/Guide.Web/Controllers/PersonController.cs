@@ -1,6 +1,7 @@
 ﻿using Guide.Web.Models;
 using Guide.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,11 @@ namespace Guide.Web.Controllers
     public class PersonController : Controller
     {
         private readonly IPersonService _personService;
-
-        public PersonController(IPersonService personService)
+        private readonly ILogger _logger;
+        public PersonController(IPersonService personService, ILogger<PersonController> logger)
         {
             _personService = personService;
+            _logger = logger;
         }
 
         #region person methods
@@ -84,8 +86,6 @@ namespace Guide.Web.Controllers
         }
         #endregion
 
-
-
         #region comminicaiton methods
         public async Task<IActionResult> CreateCommInfo(string id)
         {
@@ -122,5 +122,23 @@ namespace Guide.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
         #endregion
+        public async Task<IActionResult> Report()
+        {
+            return View(await _personService.GetAllReportAsync());
+        }
+        public async Task<IActionResult> DownloadReport(string id)
+        {
+            await _personService.DownloadReport(id+"Report");
+            return RedirectToAction(nameof(Report));
+           
+        }
+        public async Task<IActionResult> ReportRequest()
+        {
+            
+            var result= await _personService.RequestReport();
+            _logger.LogInformation(result.ToString());
+            return RedirectToAction(nameof(Report));
+            //return Ok();
+        }
     }
 }

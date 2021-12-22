@@ -1,11 +1,11 @@
 ﻿using FreeCourse.Shared.ControllerBases;
+using Guide.Shared.Dtos;
+using Guide.Shared.Messages;
 using GuideService.Guide.Dtos;
 using GuideService.Guide.Services;
-using Microsoft.AspNetCore.Http;
+using Mass=MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace GuideService.Guide.Controllers
@@ -14,10 +14,31 @@ namespace GuideService.Guide.Controllers
     [ApiController]
     public class PersonsController : CustomBaseController
     {
+        private readonly Mass.ISendEndpointProvider _sendEndpointProvider;
+
         private readonly IPersonService _personService;
-        public PersonsController(IPersonService personService)
+        public PersonsController(IPersonService personService, Mass.ISendEndpointProvider sendEndpointProvider)
         {
             _personService = personService;
+            this._sendEndpointProvider = sendEndpointProvider;
+        }
+
+        [HttpGet]
+        [Route("RequestReport")]
+        public async Task<IActionResult> RequestReport()
+        {
+            var sendEndpoint = await _sendEndpointProvider.GetSendEndpoint(new Uri("queue:create-report-request"));
+            var createReportMessageCommand = new ReportRequestEvent();
+            //createReportMessageCommand.UUID = Guid.NewGuid();
+            createReportMessageCommand.RequestTime = DateTime.Now;
+            createReportMessageCommand.Status = false;
+            var response = await _personService.CreateReportRequest(createReportMessageCommand);
+            if(response.StatusCode==200)
+            {
+                await sendEndpoint.Send(createReportMessageCommand);
+            }
+           
+            return CreateActionResultInstance<NoContent>(Response<NoContent>.Success(200));
         }
 
         [HttpGet]
@@ -27,6 +48,14 @@ namespace GuideService.Guide.Controllers
             return CreateActionResultInstance(persons);
         }
 
+        [HttpGet]
+        [Route("GetReportsAsync")]
+        public async Task<IActionResult> GetReportsAsync()
+        {
+            var reports = await _personService.GetAllReportAsync();
+            return CreateActionResultInstance(reports);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)
         {
@@ -34,8 +63,6 @@ namespace GuideService.Guide.Controllers
 
             return CreateActionResultInstance(response);
         }
-
-        
 
         [HttpPost]
         public async Task<IActionResult> Create(PersonCreateDto personCreateDto)
