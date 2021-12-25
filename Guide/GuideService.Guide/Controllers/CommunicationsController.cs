@@ -1,4 +1,5 @@
-﻿using FreeCourse.Shared.ControllerBases;
+﻿
+using Guide.Shared.ControllerBases;
 using GuideService.Guide.Dtos;
 using GuideService.Guide.Services;
 using Microsoft.AspNetCore.Mvc;

@@ -1,4 +1,4 @@
-﻿using FreeCourse.Shared.ControllerBases;
+﻿
 using Guide.Shared.Dtos;
 using Guide.Shared.Messages;
 using GuideService.Guide.Dtos;
@@ -7,12 +7,13 @@ using Mass=MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+//using Guide.Shared.ControllerBases;
 
 namespace GuideService.Guide.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PersonsController : CustomBaseController
+    public class PersonsController : ControllerBase//CustomBaseController
     {
         private readonly Mass.ISendEndpointProvider _sendEndpointProvider;
 
@@ -33,19 +34,18 @@ namespace GuideService.Guide.Controllers
             createReportMessageCommand.RequestTime = DateTime.Now;
             createReportMessageCommand.Status = false;
             var response = await _personService.CreateReportRequest(createReportMessageCommand);
-            if(response.StatusCode==200)
-            {
-                await sendEndpoint.Send(createReportMessageCommand);
-            }
-           
-            return CreateActionResultInstance<NoContent>(Response<NoContent>.Success(200));
+            
+            await sendEndpoint.Send(createReportMessageCommand);
+     
+            return Ok();
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var persons = await _personService.GetAllAsync();
-            return CreateActionResultInstance(persons);
+            //return CreateActionResultInstance(persons);
+            return Ok(persons);
         }
 
         [HttpGet]
@@ -53,38 +53,52 @@ namespace GuideService.Guide.Controllers
         public async Task<IActionResult> GetReportsAsync()
         {
             var reports = await _personService.GetAllReportAsync();
-            return CreateActionResultInstance(reports);
+            if (reports == null)
+            {
+                return NotFound();
+            }
+            //return CreateActionResultInstance(reports);
+            return Ok(reports);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)
         {
             var response = await _personService.GetByIdAsync(id);
-
-            return CreateActionResultInstance(response);
+            if (response == null)
+            {
+                return NotFound();
+            }
+            //return CreateActionResultInstance(response);
+            return Ok(response);
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(PersonCreateDto personCreateDto)
         {
-            var response = await _personService.CreateAsync(personCreateDto);
-
-            return CreateActionResultInstance(response);
-        }
+            await _personService.CreateAsync(personCreateDto);
+            return CreatedAtAction("GetAll", new { id = personCreateDto.Surname}, personCreateDto);        }
 
         [HttpPut]
         public async Task<IActionResult> Update(PersonUpdateDto personUpdateDto)
         {
             var response = await _personService.UpdateAsync(personUpdateDto);
-            return CreateActionResultInstance(response);
+            if (response == null)
+            {
+                return BadRequest();
+            }
+            return Ok(response);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {
             var response = await _personService.DeleteAsync(id);
-
-            return CreateActionResultInstance(response);
+            if(response.Equals(0))
+            {
+                return NotFound();
+            }
+            return Ok();
         }
 
 

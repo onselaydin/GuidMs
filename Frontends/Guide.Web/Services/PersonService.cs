@@ -53,8 +53,8 @@ namespace Guide.Web.Services
             {
                 return null;
             }
-            var responseResult = await response.Content.ReadFromJsonAsync<Response<List<PersonViewModel>>>();
-            return responseResult.Data;
+            var responseResult = await response.Content.ReadFromJsonAsync<List<PersonViewModel>>();
+            return responseResult;
         }
 
         public async Task<bool> RequestReport()
@@ -73,8 +73,8 @@ namespace Guide.Web.Services
             {
                 return null;
             }
-            var responseResult = await response.Content.ReadFromJsonAsync<Response<List<ReportRequestEvent>>>();
-            return responseResult.Data;
+            var responseResult = await response.Content.ReadFromJsonAsync<List<ReportRequestEvent>>();
+            return responseResult;
         }
         public async Task DownloadReport(string id)
         {
@@ -87,8 +87,8 @@ namespace Guide.Web.Services
             {
                 return null;
             }
-            var responseResult = await response.Content.ReadFromJsonAsync<Response<PersonViewModel>>();
-            return responseResult.Data;
+            var responseResult = await response.Content.ReadFromJsonAsync<PersonViewModel>();
+            return responseResult;
         }
 
         public async Task<bool> UpdatePersonAsync(PersonUpdateInput personUpdateInput)

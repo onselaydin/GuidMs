@@ -1,4 +1,5 @@
-﻿using FreeCourse.Shared.ControllerBases;
+﻿
+using Guide.Shared.ControllerBases;
 using GuideService.Report.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.PlatformAbstractions;

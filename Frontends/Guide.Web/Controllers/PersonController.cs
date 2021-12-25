@@ -13,6 +13,7 @@ namespace Guide.Web.Controllers
     {
         private readonly IPersonService _personService;
         private readonly ILogger _logger;
+        public static string contactId = "";
         public PersonController(IPersonService personService, ILogger<PersonController> logger)
         {
             _personService = personService;
@@ -93,6 +94,8 @@ namespace Guide.Web.Controllers
             return View();
         }
 
+        
+
         [HttpPost]
         public async Task<IActionResult> CreateCommInfo(CommunicationCreateInput communicationCreateInput)
         {
@@ -107,7 +110,7 @@ namespace Guide.Web.Controllers
 
         public async Task<IActionResult> Communication(string id)
         {
-
+            contactId = id;
             var person = await _personService.GetByPersonId(id);
 
             if (person == null)
@@ -118,10 +121,14 @@ namespace Guide.Web.Controllers
         }
         public async Task<IActionResult> DeleteCommunication(string id)
         {
+            contactId = id;
             await _personService.DeleteCommunicationAsync(id);
             return RedirectToAction(nameof(Index));
         }
         #endregion
+
+
+
         public async Task<IActionResult> Report()
         {
             return View(await _personService.GetAllReportAsync());
